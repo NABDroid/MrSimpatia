@@ -5,28 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ChooseStoreActivity">
+    tools:context=".activities.ChooseStoreActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shopListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createStoreFAB"
-        android:layout_width="70dp"
-        android:padding="10dp"
-        android:layout_height="70dp"
-        android:layout_margin="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_plus"/>
-
-
-
-
-
-
-
 </RelativeLayout>

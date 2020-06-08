@@ -1,4 +1,4 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ernestyes.mrsimpatia.fiverr.R;
+import com.ernestyes.mrsimpatia.fiverr.RegActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

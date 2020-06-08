@@ -1,7 +1,7 @@
 package com.ernestyes.mrsimpatia.fiverr;
 
 class Player {
-    String name, email;
+    private String name, email;
 
     public Player(String name, String email) {
         this.name = name;

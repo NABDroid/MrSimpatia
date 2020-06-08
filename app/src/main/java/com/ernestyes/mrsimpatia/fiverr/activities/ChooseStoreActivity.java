@@ -1,45 +1,107 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ernestyes.mrsimpatia.fiverr.R;
+import com.ernestyes.mrsimpatia.fiverr.ShopListAdapter;
+import com.ernestyes.mrsimpatia.fiverr.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ChooseStoreActivity extends AppCompatActivity {
-    private FloatingActionButton fab;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    private RecyclerView shopsRecyclerView;
+    private ShopListAdapter shopListAdapter;
+    private ArrayList<Store> stores;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_store);
         init();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ChooseStoreActivity.this, NewStoreActivity.class));
-            }
-        });
+        initRecyclerView();
+        getStores();
+
 
     }
+
 
     private void init() {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Root");
-        fab = findViewById(R.id.createStoreFAB);
+        shopsRecyclerView = findViewById(R.id.shopListRecyclerView);
+        stores = new ArrayList<>();
+        shopListAdapter = new ShopListAdapter(stores, this);
+    }
+
+    private void initRecyclerView() {
+        shopsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        shopsRecyclerView.setAdapter(shopListAdapter);
+    }
+
+
+    private void getStores() {
+
+        final DatabaseReference storesRef = databaseReference.child("Stores");
+        storesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                stores.clear();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Store store = data.getValue(Store.class);
+                        stores.add(store);
+                    }
+                    shopListAdapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private void attachStore(int storeId) {
@@ -56,13 +118,6 @@ public class ChooseStoreActivity extends AppCompatActivity {
 
 
         }
-
-
-
-
-
-
-
 
         String uId = firebaseAuth.getCurrentUser().getUid();
         DatabaseReference playersRef = databaseReference.child("Players").child(uId).child("store");

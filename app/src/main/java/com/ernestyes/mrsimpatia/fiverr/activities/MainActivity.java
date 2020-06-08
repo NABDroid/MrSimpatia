@@ -1,8 +1,10 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.ernestyes.mrsimpatia.fiverr.R;
 
 public class MainActivity extends AppCompatActivity {
 

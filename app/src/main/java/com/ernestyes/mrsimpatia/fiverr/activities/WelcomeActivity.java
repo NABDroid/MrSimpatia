@@ -1,4 +1,4 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.ernestyes.mrsimpatia.fiverr.R;
 
 public class WelcomeActivity extends AppCompatActivity {
     private Button loginAsPlayerBTN, createStore;
