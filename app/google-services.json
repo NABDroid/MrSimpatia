@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "740411277992",
+    "firebase_url": "https://mrsimpatia-7f9ee.firebaseio.com",
+    "project_id": "mrsimpatia-7f9ee",
+    "storage_bucket": "mrsimpatia-7f9ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740411277992:android:84ed21f8280f8ffc6db89d",
+        "android_client_info": {
+          "package_name": "com.ernestyes.mrsimpatia.fiverr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740411277992-e0f0encfib1skedi6dmmqsoi2gsb0514.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ernestyes.mrsimpatia.fiverr",
+            "certificate_hash": "a57817ba3ec2629733e3e9e30637c8733f249ee0"
+          }
+        },
+        {
+          "client_id": "740411277992-mfnl542m2rp4vn4hg4u13sidjs3p62ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMMtlzH65a-8aOVUNZ8Jdf5A4cKDilyNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740411277992-mfnl542m2rp4vn4hg4u13sidjs3p62ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
