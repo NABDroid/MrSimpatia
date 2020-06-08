@@ -11,42 +11,34 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ChooseStoreActivity extends AppCompatActivity {
-    private LinearLayout simpatiaLL, nabdRoidLL;
+    private FloatingActionButton fab;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_store);
         init();
-        simpatiaLL.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attachStore(1);
+                startActivity(new Intent(ChooseStoreActivity.this, NewStoreActivity.class));
             }
         });
-
-        nabdRoidLL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attachStore(2);
-            }
-        });
-
 
     }
 
     private void init() {
-        simpatiaLL = findViewById(R.id.simpatiaLL);
-        nabdRoidLL = findViewById(R.id.nabdRoidLL);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Root");
+        fab = findViewById(R.id.createStoreFAB);
+
     }
 
 

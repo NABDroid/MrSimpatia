@@ -41,15 +41,15 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
-        for (int progress = 1; progress<=10; progress = progress+1){
+        for (int progress = 1; progress<=50; progress++){
             try {
                 Thread.sleep(20);
-                if (progress>=10){
+                if (progress>=50){
 
                     if (currentUser != null){
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     } else{
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
 
                     }
 
@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (currentUser != null){
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 } else{
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
 
                 }
             }
