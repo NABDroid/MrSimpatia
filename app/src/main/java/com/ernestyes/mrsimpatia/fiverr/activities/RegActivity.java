@@ -1,4 +1,4 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ernestyes.mrsimpatia.fiverr.activities.ChooseStoreActivity;
-import com.ernestyes.mrsimpatia.fiverr.activities.LoginActivity;
+import com.ernestyes.mrsimpatia.fiverr.pojo.Player;
+import com.ernestyes.mrsimpatia.fiverr.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -48,12 +48,12 @@ public class RegActivity extends AppCompatActivity {
 
 
     private void init() {
-        firstNameET = findViewById(R.id.firstNameETRegAct);
-        lastNameET = findViewById(R.id.lastNameETRegAct);
-        emailET = findViewById(R.id.emailETRegAct);
-        passwordET = findViewById(R.id.passwordETRegAct);
-        retypePasswordET = findViewById(R.id.retypePasswordETRegAct);
-        registerButton = findViewById(R.id.registerBTNRegAct);
+        firstNameET = findViewById(R.id.firstNameEditTextRegActivity);
+        lastNameET = findViewById(R.id.lastNameEditTextRegActivity);
+        emailET = findViewById(R.id.emailEditTextRegActivity);
+        passwordET = findViewById(R.id.passwordEditTextRegActivity);
+        retypePasswordET = findViewById(R.id.retypePasswordEditTextRegActivity);
+        registerButton = findViewById(R.id.registerButtonRegActivity);
         goForLoginTV = findViewById(R.id.goForLogin);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Root");

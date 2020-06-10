@@ -21,7 +21,7 @@
            android:src="@drawable/logo"/>
 
        <EditText
-           android:id="@+id/emailETLogin"
+           android:id="@+id/emailEditTextLoginActivity"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_marginLeft="20dp"
@@ -29,8 +29,8 @@
            android:layout_marginRight="20dp"
            android:background="@drawable/curve_background_transparent"
            android:drawablePadding="5dp"
-           android:fontFamily="sans-serif-light"
-           android:hint="E-Mail"
+           android:fontFamily="sans-serif-smallcaps"
+           android:hint="Email"
            android:inputType="textEmailAddress"
            android:maxLines="1"
            android:padding="10dp"
@@ -39,7 +39,7 @@
 
 
        <EditText
-           android:id="@+id/passwordETLogin"
+           android:id="@+id/passwordEditTextLoginActivity"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_marginLeft="20dp"
@@ -47,7 +47,7 @@
            android:layout_marginRight="20dp"
            android:background="@drawable/curve_background_transparent"
            android:drawablePadding="5dp"
-           android:fontFamily="sans-serif-light"
+           android:fontFamily="sans-serif-smallcaps"
            android:hint="Password"
            android:inputType="textPassword"
            android:maxLines="1"
@@ -56,35 +56,35 @@
            android:textSize="16sp" />
 
        <Button
-           android:id="@+id/loginBTN"
-           style="@style/Base.TextAppearance.AppCompat.Body1"
-           android:layout_width="match_parent"
+           android:id="@+id/loginButtonLoginActivity"
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+           android:layout_gravity="center"
            android:layout_marginLeft="20dp"
            android:layout_marginTop="20dp"
            android:layout_marginRight="20dp"
            android:background="@drawable/button_background"
-           android:clickable="true"
            android:padding="10dp"
            android:text="Login"
+           android:textAllCaps="false"
            android:fontFamily="sans-serif-smallcaps"
            android:textColor="@color/white"
-           android:textSize="18dp" />
+           android:textSize="16dp" />
    </LinearLayout>
 
 
 
     <TextView
-        android:id="@+id/goForRegistrationTV"
+        android:id="@+id/registrationTextViewLoginActivity"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Have an account?"
-        android:textAllCaps="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Register As A Player"
+        android:textAllCaps="false"
         android:textColor="@color/text_color"
         android:textSize="16sp"
         android:textStyle="bold" />

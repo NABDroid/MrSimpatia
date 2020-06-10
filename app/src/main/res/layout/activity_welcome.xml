@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/loginBTNWA"
+            android:id="@+id/playerButtonWelcomeActivity"
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,13 +25,14 @@
             android:clickable="true"
             android:fontFamily="sans-serif-smallcaps"
             android:padding="10dp"
-            android:text="Login"
+            android:text="Player"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
 
         <Button
-            android:id="@+id/createStoreBTNWA"
+            android:id="@+id/storeButtonWelcomeActivity"
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,9 +44,10 @@
             android:clickable="true"
             android:fontFamily="sans-serif-smallcaps"
             android:padding="10dp"
-            android:text="Create Your Store"
+            android:text="Store"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
     </LinearLayout>
 
 

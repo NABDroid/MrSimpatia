@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
-import com.ernestyes.mrsimpatia.fiverr.RegActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,10 +45,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        emailET = findViewById(R.id.emailETLogin);
-        passwordET = findViewById(R.id.passwordETLogin);
-        loginBTN = findViewById(R.id.loginBTN);
-        goForSignUpTV = findViewById(R.id.goForRegistrationTV);
+        emailET = findViewById(R.id.emailEditTextLoginActivity);
+        passwordET = findViewById(R.id.passwordEditTextLoginActivity);
+        loginBTN = findViewById(R.id.loginButtonLoginActivity);
+        goForSignUpTV = findViewById(R.id.registrationTextViewLoginActivity);
         firebaseAuth = FirebaseAuth.getInstance();
     }
 

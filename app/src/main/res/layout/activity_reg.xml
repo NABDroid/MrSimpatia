@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="50dp"
-    tools:context=".RegActivity">
+    tools:context=".activities.RegActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/firstNameETRegAct"
+                android:id="@+id/firstNameEditTextRegActivity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/curve_background_transparent"
                 android:drawablePadding="12dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif-smallcaps"
                 android:hint="First Name"
                 android:inputType="text"
                 android:maxLines="1"
@@ -43,7 +43,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/lastNameETRegAct"
+                android:id="@+id/lastNameEditTextRegActivity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/curve_background_transparent"
                 android:drawablePadding="12dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif-smallcaps"
                 android:hint="Last Name"
                 android:inputType="text"
                 android:maxLines="1"
@@ -63,7 +63,7 @@
 
 
         <EditText
-            android:id="@+id/emailETRegAct"
+            android:id="@+id/emailEditTextRegActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -71,8 +71,8 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/curve_background_transparent"
             android:drawablePadding="5dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="E-Mail"
+            android:fontFamily="sans-serif-smallcaps"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:padding="10dp"
@@ -81,7 +81,7 @@
 
 
         <EditText
-            android:id="@+id/passwordETRegAct"
+            android:id="@+id/passwordEditTextRegActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -89,7 +89,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/curve_background_transparent"
             android:drawablePadding="5dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif-smallcaps"
             android:hint="Type password"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -99,7 +99,7 @@
 
 
         <EditText
-            android:id="@+id/retypePasswordETRegAct"
+            android:id="@+id/retypePasswordEditTextRegActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -107,7 +107,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/curve_background_transparent"
             android:drawablePadding="5dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif-smallcaps"
             android:hint="Retype password"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -117,10 +117,11 @@
 
 
         <Button
-            android:id="@+id/registerBTNRegAct"
+            android:id="@+id/registerButtonRegActivity"
             style="@style/Base.TextAppearance.AppCompat.Body1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
@@ -128,6 +129,7 @@
             android:clickable="true"
             android:padding="10dp"
             android:text="Sign Up"
+            android:fontFamily="sans-serif-smallcaps"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -142,9 +144,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Have an account?"
-        android:textAllCaps="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Login"
+        android:textAllCaps="false"
         android:textColor="@color/text_color"
         android:textSize="16sp"
         android:textStyle="bold" />

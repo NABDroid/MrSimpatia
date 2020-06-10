@@ -1,6 +1,6 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.pojo;
 
-class Player {
+public class Player {
     private String name, email;
 
     public Player(String name, String email) {

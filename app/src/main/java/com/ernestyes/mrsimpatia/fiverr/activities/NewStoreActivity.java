@@ -8,12 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
-import com.ernestyes.mrsimpatia.fiverr.Store;
+import com.ernestyes.mrsimpatia.fiverr.pojo.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,8 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class NewStoreActivity extends AppCompatActivity {
-    private ImageView logoIV;
-    private TextView pickLogoTV;
+    private TextView loginTV;
     private EditText storeNameET, authorNameET, emailET, locationET, passwordET;
     private Button createAndStart;
     private FirebaseAuth firebaseAuth;
@@ -40,19 +38,24 @@ public class NewStoreActivity extends AppCompatActivity {
                 createStore();
             }
         });
+        loginTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewStoreActivity.this, LoginActivity.class));
+            }
+        });
 
 
     }
 
 
     private void init() {
-        logoIV = findViewById(R.id.logoNewStoreIV);
-        pickLogoTV = findViewById(R.id.pickLogoNewStoreTV);
-        storeNameET = findViewById(R.id.storeNameNewStoreET);
-        authorNameET = findViewById(R.id.authorNameNewStoreET);
-        emailET = findViewById(R.id.authorEmailNewStoreET);
-        locationET = findViewById(R.id.storeLocationNewStoreET);
-        passwordET = findViewById(R.id.passwordNewStoreET);
+        loginTV = findViewById(R.id.loginTextViewNewStoreActivity);
+        storeNameET = findViewById(R.id.storeNameEditTextNewStore);
+        authorNameET = findViewById(R.id.authorNameEditTextNewStore);
+        emailET = findViewById(R.id.emailEditTextNewStore);
+        locationET = findViewById(R.id.locationEditTextNewStore);
+        passwordET = findViewById(R.id.passwordEditTextNewStore);
         createAndStart = findViewById(R.id.createNewStoreButton);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Root");
@@ -94,6 +97,7 @@ public class NewStoreActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Toast.makeText(NewStoreActivity.this, "successful", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(NewStoreActivity.this, MainActivity.class));
                 } else {
                     Toast.makeText(NewStoreActivity.this, "Error", Toast.LENGTH_SHORT).show();

@@ -1,7 +1,8 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.pojo;
 
 public class Store {
     String storeName, authorName, email, location;
+    public boolean colorCheck = false;
 
     public Store(String storeName, String authorName, String email, String location) {
         this.storeName = storeName;

@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
-import com.ernestyes.mrsimpatia.fiverr.ShopListAdapter;
-import com.ernestyes.mrsimpatia.fiverr.Store;
+import com.ernestyes.mrsimpatia.fiverr.adapters.ShopListAdapter;
+import com.ernestyes.mrsimpatia.fiverr.pojo.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +31,8 @@ public class ChooseStoreActivity extends AppCompatActivity {
     private RecyclerView shopsRecyclerView;
     private ShopListAdapter shopListAdapter;
     private ArrayList<Store> stores;
-
+    private FloatingActionButton fabAdd;
+    private String storeName = "NoStore";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +40,31 @@ public class ChooseStoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_store);
         init();
         initRecyclerView();
-        getStores();
+        loadDataIntoRecyclerview();
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (storeName !="NoStore"){
+
+                } else {
+                    Toast.makeText(ChooseStoreActivity.this, "Select a store", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
 
     }
 
 
+
     private void init() {
+        fabAdd = findViewById(R.id.addFab);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Root");
         shopsRecyclerView = findViewById(R.id.shopListRecyclerView);
         stores = new ArrayList<>();
-        shopListAdapter = new ShopListAdapter(stores, this);
+        shopListAdapter = new ShopListAdapter(stores, this, firebaseAuth, databaseReference);
     }
 
     private void initRecyclerView() {
@@ -56,11 +72,9 @@ public class ChooseStoreActivity extends AppCompatActivity {
         shopsRecyclerView.setAdapter(shopListAdapter);
     }
 
-
-    private void getStores() {
-
-        final DatabaseReference storesRef = databaseReference.child("Stores");
-        storesRef.addValueEventListener(new ValueEventListener() {
+    private void loadDataIntoRecyclerview() {
+        DatabaseReference storeRef = databaseReference.child("Stores");
+        storeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 stores.clear();
@@ -69,6 +83,7 @@ public class ChooseStoreActivity extends AppCompatActivity {
                         Store store = data.getValue(Store.class);
                         stores.add(store);
                     }
+
                     shopListAdapter.notifyDataSetChanged();
 
                 }
@@ -79,59 +94,12 @@ public class ChooseStoreActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void attachStore(int storeId) {
-        String storeName;
-        switch (storeId){
-            case 1:
-                storeName = "Simpatia";
-                break;
-            case 2:
-                storeName = "NABDroid";
-                break;
-            default:
-                storeName = "No";
-
-
-        }
-
-        String uId = firebaseAuth.getCurrentUser().getUid();
-        DatabaseReference playersRef = databaseReference.child("Players").child(uId).child("store");
-        playersRef.setValue(storeName).addOnCompleteListener(ChooseStoreActivity.this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    startActivity(new Intent(ChooseStoreActivity.this, MainActivity.class));
-                } else {
-                    Toast.makeText(ChooseStoreActivity.this, "Error", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
+    public void setSelectedStore(String storeName) {
+        this.storeName = storeName;
 
     }
 

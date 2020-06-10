@@ -4,123 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="20dp"
     tools:context=".activities.NewStoreActivity">
 
-    <ImageView
-        android:id="@+id/logoNewStoreIV"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_image" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1">
+        <EditText
+            android:id="@+id/storeNameEditTextNewStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/curve_background_transparent"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:hint="Store Name"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/authorNameEditTextNewStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/curve_background_transparent"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:hint="Author Name"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/emailEditTextNewStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/curve_background_transparent"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:hint="Email"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/locationEditTextNewStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/curve_background_transparent"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:hint="Location"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/passwordEditTextNewStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/curve_background_transparent"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/createNewStoreButton"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_background"
+            android:clickable="true"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:text="Create And Launch"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+
 
     <TextView
-        android:id="@+id/pickLogoNewStoreTV"
+        android:id="@+id/loginTextViewNewStoreActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="Choose Logo"
-        android:textColor="@color/text_color"
-        android:textSize="8dp" />
-
-    <EditText
-        android:id="@+id/storeNameNewStoreET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/curve_background_transparent"
-        android:drawablePadding="5dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="Store Name"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:textColor="@color/text_color"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/authorNameNewStoreET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/curve_background_transparent"
-        android:drawablePadding="5dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="Author Name"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:textColor="@color/text_color"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/authorEmailNewStoreET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/curve_background_transparent"
-        android:drawablePadding="5dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="Email"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:textColor="@color/text_color"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/storeLocationNewStoreET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/curve_background_transparent"
-        android:drawablePadding="5dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="Location"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:textColor="@color/text_color"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/passwordNewStoreET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/curve_background_transparent"
-        android:drawablePadding="5dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:textColor="@color/text_color"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/createNewStoreButton"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/button_background"
-        android:clickable="true"
-        android:padding="10dp"
-        android:text="Create and launch"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Login"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

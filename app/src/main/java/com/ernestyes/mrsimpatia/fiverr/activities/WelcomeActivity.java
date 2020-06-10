@@ -10,16 +10,16 @@ import android.widget.Button;
 import com.ernestyes.mrsimpatia.fiverr.R;
 
 public class WelcomeActivity extends AppCompatActivity {
-    private Button loginAsPlayerBTN, createStore;
+    private Button playerButton, storeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        loginAsPlayerBTN = findViewById(R.id.loginBTNWA);
-        createStore = findViewById(R.id.createStoreBTNWA);
+        playerButton = findViewById(R.id.playerButtonWelcomeActivity);
+        storeButton = findViewById(R.id.storeButtonWelcomeActivity);
 
-        loginAsPlayerBTN.setOnClickListener(new View.OnClickListener() {
+        playerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
@@ -27,7 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
 
-        createStore.setOnClickListener(new View.OnClickListener() {
+        storeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeActivity.this, NewStoreActivity.class));
