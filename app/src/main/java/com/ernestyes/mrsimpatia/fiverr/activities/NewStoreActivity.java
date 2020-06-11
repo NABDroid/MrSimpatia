@@ -90,15 +90,14 @@ public class NewStoreActivity extends AppCompatActivity {
     }
 
     private void saveInfo(String storeName, String authorName, String email, String location) {
-        Store store = new Store(storeName, authorName, email, location);
+        Store store = new Store(storeName, authorName, email, location, 0, 0);
 
         DatabaseReference storeRef = databaseReference.child("Stores").child(storeName);
         storeRef.setValue(store).addOnCompleteListener(NewStoreActivity.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(NewStoreActivity.this, "successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(NewStoreActivity.this, MainActivity.class));
+                    writeInAllUserNode();
                 } else {
                     Toast.makeText(NewStoreActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
@@ -109,4 +108,21 @@ public class NewStoreActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void writeInAllUserNode() {
+        String uId = firebaseAuth.getUid();
+        DatabaseReference allUsers = databaseReference.child("AllUsers").child(uId);
+        allUsers.setValue("Store").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(NewStoreActivity.this, "successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(NewStoreActivity.this, MainActivity.class));
+            }
+        });
+    }
+
+
+
+
 }

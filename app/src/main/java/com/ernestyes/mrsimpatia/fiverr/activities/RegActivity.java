@@ -96,18 +96,27 @@ public class RegActivity extends AppCompatActivity {
     }
 
     private void saveInfo(String name, String email) {
-        String uId = firebaseAuth.getCurrentUser().getUid();
+        final String uId = firebaseAuth.getCurrentUser().getUid();
         DatabaseReference playersRef = databaseReference.child("Players").child(uId);
-        Player player = new Player(name, email);
+        Player player = new Player(name, email, "No Store",0,0 );
         playersRef.setValue(player).addOnCompleteListener(RegActivity.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(RegActivity.this, ChooseStoreActivity.class));
+                    writeInAllUserNode(uId);
                 } else {
                     Toast.makeText(RegActivity.this, "Error", Toast.LENGTH_SHORT).show();
-
                 }
+            }
+        });
+    }
+
+    private void writeInAllUserNode(String uId) {
+        DatabaseReference allUsers = databaseReference.child("AllUsers").child(uId);
+        allUsers.setValue("Player").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                startActivity(new Intent(RegActivity.this, ChooseStoreActivity.class));
             }
         });
     }
