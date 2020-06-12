@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StoreHomeActivity"></activity>
-        <activity android:name=".PlayerHomeActivity" />
+        <activity android:name=".activities.ArtActivity"></activity>
+        <activity android:name=".activities.StoreHomeActivity" />
+        <activity android:name=".activities.PlayerHomeActivity" />
         <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.NewStoreActivity" />
         <activity android:name=".activities.ChooseStoreActivity" />
@@ -25,7 +26,6 @@
         </activity>
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.RegActivity" />
-        <activity android:name=".activities.MainActivity" />
     </application>
 
 </manifest>

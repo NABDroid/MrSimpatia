@@ -117,7 +117,7 @@ public class NewStoreActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(NewStoreActivity.this, "successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NewStoreActivity.this, MainActivity.class));
+                startActivity(new Intent(NewStoreActivity.this, StoreHomeActivity.class));
             }
         });
     }
