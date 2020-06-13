@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
-import com.ernestyes.mrsimpatia.fiverr.pojo.Store;
+import com.ernestyes.mrsimpatia.fiverr.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

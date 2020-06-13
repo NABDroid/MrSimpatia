@@ -1,4 +1,4 @@
-package com.ernestyes.mrsimpatia.fiverr.pojo;
+package com.ernestyes.mrsimpatia.fiverr;
 
 public class Player {
     private String name, email, associatedStore;

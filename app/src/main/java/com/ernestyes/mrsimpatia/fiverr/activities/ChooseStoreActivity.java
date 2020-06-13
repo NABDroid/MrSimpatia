@@ -6,15 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
 import com.ernestyes.mrsimpatia.fiverr.adapters.ShopListAdapter;
-import com.ernestyes.mrsimpatia.fiverr.pojo.Store;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.ernestyes.mrsimpatia.fiverr.Store;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

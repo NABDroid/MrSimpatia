@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
 import com.ernestyes.mrsimpatia.fiverr.activities.ChooseStoreActivity;
-import com.ernestyes.mrsimpatia.fiverr.pojo.Store;
+import com.ernestyes.mrsimpatia.fiverr.Store;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

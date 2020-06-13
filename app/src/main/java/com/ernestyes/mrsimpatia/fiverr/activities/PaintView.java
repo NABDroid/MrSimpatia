@@ -31,10 +31,10 @@ public class PaintView extends View {
     private int currentColor;
     private int backgroundColor = DEFAULT_BG_COLOR;
     private int strokeWidth;
-    private Bitmap mBitmap;
+    private Bitmap mBitmap, backgroundBitmap, referenceBitmap;
     private Canvas mCanvas;
-    int levelNumber;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    private Paint opacityPaint = new Paint();
     private ArrayList<Draw> paths = new ArrayList<>();
     private ArrayList<Draw> undo = new ArrayList<>();
 
@@ -53,26 +53,28 @@ public class PaintView extends View {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
+        opacityPaint.setAlpha(42);
     }
 
-    public void initialise( int levelNumber) {
-        this.levelNumber = levelNumber;
+    public void initialise(Bitmap bitmap) {
         mBitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
         currentColor = DEFAULT_COLOR;
         strokeWidth = BRUSH_SIZE;
+        backgroundBitmap = bitmap;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-        mCanvas.drawColor(backgroundColor); // WRONG
+//        mCanvas.drawColor(backgroundColor); // WRONG
         for (Draw draw : paths) {
             mPaint.setColor(draw.color); // WRONG
             mPaint.setStrokeWidth(draw.strokeWidth);
             mPaint.setMaskFilter(null);
             mCanvas.drawPath(draw.path, mPaint);
         }
+        canvas.drawBitmap(backgroundBitmap, 0,0, opacityPaint);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.restore();
 
@@ -186,52 +188,57 @@ public class PaintView extends View {
     }
 
 
-    public boolean getResult() {
+    public String getResult() {
         int match = 0, unmatch = 0;
-        Bitmap referance;
 
         int[][] drawingMatrix = new int[512][512];
         int[][] referenceMatrix =  new int[512][512];
 
 
-        referance = BitmapFactory.decodeResource(getResources(), R.drawable.ic_wings);
-        referance = Bitmap.createScaledBitmap(referance, 512, 512, false);
-
-
         for (int i = 0; i < 512; i++) {
             for (int j = 0; j < 512; j++) {
                 drawingMatrix[i][j] = mBitmap.getPixel(i, j);
-                referenceMatrix[i][j] = referance.getPixel(i, j);
+                referenceMatrix[i][j] = backgroundBitmap.getPixel(i, j);
 
-                if (referenceMatrix[i][j]!=0){
-                    if (drawingMatrix[i][j] == referenceMatrix[i][j]) {
-                        match++;
-                    } else {
-                        unmatch++;
-                    }
+
+
+                if (drawingMatrix[i][j] == referenceMatrix[i][j]){
+                    match++;
                 } else {
-                    drawingMatrix[i][j] = mBitmap.getPixel(i, j);
-                    if (drawingMatrix[i][j]==-1793418){
-                        match++;
-                    } else {
-                        unmatch++;
-                    }
+                    unmatch++;
                 }
+
+//                if (referenceMatrix[i][j]!=0){
+//                    if (drawingMatrix[i][j] == referenceMatrix[i][j]) {
+//                        match++;
+//                    } else {
+//                        unmatch++;
+//                    }
+//                } else {
+//                    drawingMatrix[i][j] = mBitmap.getPixel(i, j);
+//                    if (drawingMatrix[i][j]==-1793418){
+//                        match++;
+//                    } else {
+//                        unmatch++;
+//                    }
+//                }
 
             }
         }
 
-        Toast.makeText(getContext(), "drawing: "+drawingMatrix[5][511]+" Reference: "+referenceMatrix[5][511], Toast.LENGTH_SHORT).show();
 
-        if (match>unmatch){
-            return true;
-        } else {
-            return false;
-        }
+//        if (match>unmatch){
+//            return true;
+//        } else {
+//            return false;
+//        }
+        String result = "Match: "+match+" unmatched: "+unmatch+"\n DrawingMatrix: "+drawingMatrix[500][500]+" referenceMatrix: "+referenceMatrix[500][500]+"";
+        return result;
+
     }
 
     private void createBitmapForBackground(){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_wings);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_level_1);
         bitmap = Bitmap.createScaledBitmap(bitmap, 512, 512, false);
 
         int[][] backgroundMatrix = new int[512][512];

@@ -56,9 +56,16 @@ public class SplashActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         String role = dataSnapshot.getValue().toString();
                         if (role.equals("Player")){
-                            startActivity(new Intent(SplashActivity.this, PlayerHomeActivity.class));
+                            Intent intent = new Intent(SplashActivity.this, PlayerHomeActivity.class);
+                            intent.putExtra("uId", uId);
+                            startActivity(intent);
+
                         } else if (role.equals("Store")){
-                            startActivity(new Intent(SplashActivity.this, StoreHomeActivity.class));
+
+                            Intent intent = new Intent(SplashActivity.this, StoreHomeActivity.class);
+                            intent.putExtra("uId", uId);
+                            startActivity(intent);
+
                         } else {
                             Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }

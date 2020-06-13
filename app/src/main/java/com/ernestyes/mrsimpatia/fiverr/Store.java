@@ -1,4 +1,4 @@
-package com.ernestyes.mrsimpatia.fiverr.pojo;
+package com.ernestyes.mrsimpatia.fiverr;
 
 public class Store {
     String storeName, authorName, email, location;

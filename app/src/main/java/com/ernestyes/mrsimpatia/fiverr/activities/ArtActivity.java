@@ -2,11 +2,15 @@ package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
@@ -16,7 +20,9 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     private int defaultColor;
     private Button blackButton, redButton, greenButton, blueButton, submitButton;
     private ImageView undoIV, redoIV, fatLineIV, thinLineIV, demoImage;
-    int level = 1;
+    int currentLevel = 49;
+    private Bitmap refBitmap;
+    private TextView resTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +30,14 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_art);
         init();
 
-        paintView.initialise(level);
-        paintView.setStrokeWidth(10);
+        Intent artIntent = getIntent();
+        currentLevel = artIntent.getIntExtra("currentLevel", 50);
+        Toast.makeText(this, "currentLevel " + currentLevel, Toast.LENGTH_SHORT).show();
 
+        chooseTask();
+
+        paintView.initialise(refBitmap);
+        paintView.setStrokeWidth(10);
         blackButton.setOnClickListener(this);
         redButton.setOnClickListener(this);
         blueButton.setOnClickListener(this);
@@ -36,8 +47,8 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         submitButton.setOnClickListener(this);
         fatLineIV.setOnClickListener(this);
         thinLineIV.setOnClickListener(this);
-
     }
+
 
     private void init() {
         demoImage = findViewById(R.id.showDemo);
@@ -51,7 +62,79 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         undoIV = findViewById(R.id.undoIV);
         redoIV = findViewById(R.id.redoIV);
         submitButton = findViewById(R.id.submitButton);
+        resTV = findViewById(R.id.resultTV);
     }
+
+    private void chooseTask() {
+        switch (currentLevel) {
+            case 1:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_1);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 2:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_2);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 3:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_3);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 4:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_4);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 5:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_5);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 6:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_6);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 7:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_7);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 8:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_8);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 9:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_9);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 10:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_10);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 11:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_11);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            case 12:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_12);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                break;
+
+            default:
+                refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_13);
+                refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -99,6 +182,8 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void checkResult() {
-        boolean result = paintView.getResult();
+        String result = paintView.getResult();
+
+        resTV.setText(result);
     }
 }
