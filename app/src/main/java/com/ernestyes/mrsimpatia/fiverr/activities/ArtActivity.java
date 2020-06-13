@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
+import com.ernestyes.mrsimpatia.fiverr.ResultActivity;
 
 public class ArtActivity extends AppCompatActivity implements View.OnClickListener {
     private PaintView paintView;
@@ -23,6 +24,7 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     int currentLevel = 49;
     private Bitmap refBitmap;
     private TextView resTV;
+    private static final String RESULT_MESSAGE = "resultMessage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,10 +185,11 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
 
     private void checkResult() {
         int result = paintView.getResult();
-        if (result ==100){
-            
-        }
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(RESULT_MESSAGE, result);
+        startActivity(intent);
 
-        resTV.setText(result);
+
+        Toast.makeText(this, "Res: "+result, Toast.LENGTH_SHORT).show();
     }
 }
