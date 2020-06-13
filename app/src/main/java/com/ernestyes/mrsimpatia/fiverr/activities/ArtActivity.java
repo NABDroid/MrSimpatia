@@ -182,7 +182,10 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void checkResult() {
-        String result = paintView.getResult();
+        int result = paintView.getResult();
+        if (result ==100){
+            
+        }
 
         resTV.setText(result);
     }

@@ -62,6 +62,7 @@ public class PaintView extends View {
         currentColor = DEFAULT_COLOR;
         strokeWidth = BRUSH_SIZE;
         backgroundBitmap = bitmap;
+        referenceBitmap = bitmap;
     }
 
     @Override
@@ -188,8 +189,8 @@ public class PaintView extends View {
     }
 
 
-    public String getResult() {
-        int match = 0, unmatch = 0;
+    public int getResult() {
+        int matched = 0, unmatched = 0, result;
 
         int[][] drawingMatrix = new int[512][512];
         int[][] referenceMatrix =  new int[512][512];
@@ -198,62 +199,36 @@ public class PaintView extends View {
         for (int i = 0; i < 512; i++) {
             for (int j = 0; j < 512; j++) {
                 drawingMatrix[i][j] = mBitmap.getPixel(i, j);
-                referenceMatrix[i][j] = backgroundBitmap.getPixel(i, j);
+                referenceMatrix[i][j] = referenceBitmap.getPixel(i, j);
 
 
 
                 if (drawingMatrix[i][j] == referenceMatrix[i][j]){
-                    match++;
+                    matched++;
                 } else {
-                    unmatch++;
+                    unmatched++;
                 }
-
-//                if (referenceMatrix[i][j]!=0){
-//                    if (drawingMatrix[i][j] == referenceMatrix[i][j]) {
-//                        match++;
-//                    } else {
-//                        unmatch++;
-//                    }
-//                } else {
-//                    drawingMatrix[i][j] = mBitmap.getPixel(i, j);
-//                    if (drawingMatrix[i][j]==-1793418){
-//                        match++;
-//                    } else {
-//                        unmatch++;
-//                    }
-//                }
 
             }
         }
 
 
-//        if (match>unmatch){
-//            return true;
-//        } else {
-//            return false;
-//        }
-        String result = "Match: "+match+" unmatched: "+unmatch+"\n DrawingMatrix: "+drawingMatrix[500][500]+" referenceMatrix: "+referenceMatrix[500][500]+"";
+        if (unmatched<=10000){
+             result = 100;
+        } else if (unmatched<=20000 && unmatched>10000){
+            result = 90;
+        } else if (unmatched<=30000 && unmatched>20000){
+            result = 80;
+        } else {
+            result = 0;
+        }
+
+
+
+
+//        String result = "Match: "+matched+" unmatched: "+unmatched+"\nEmptyPixel "+emptyPixels+"";
         return result;
 
     }
 
-    private void createBitmapForBackground(){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_level_1);
-        bitmap = Bitmap.createScaledBitmap(bitmap, 512, 512, false);
-
-        int[][] backgroundMatrix = new int[512][512];
-
-
-        for (int i = 0; i < 512; i++) {
-            for (int j = 0; j < 512; j++) {
-                backgroundMatrix[i][j] = bitmap.getPixel(i, j);
-                if (backgroundMatrix[i][j]==0){
-                    backgroundMatrix[i][j] = 13421772;
-                }
-            }
-        }
-
-
-
-    }
 }
