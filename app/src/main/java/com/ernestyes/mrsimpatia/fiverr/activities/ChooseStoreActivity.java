@@ -42,7 +42,6 @@ public class ChooseStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (storeName !="NoStore"){
-
                 } else {
                     Toast.makeText(ChooseStoreActivity.this, "Select a store", Toast.LENGTH_SHORT).show();
                 }
@@ -91,13 +90,6 @@ public class ChooseStoreActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-
-
-    public void setSelectedStore(String storeName) {
-        this.storeName = storeName;
-
     }
 
 }

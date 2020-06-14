@@ -23,7 +23,6 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     private ImageView undoIV, redoIV, fatLineIV, thinLineIV, demoImage;
     int currentLevel = 49;
     private Bitmap refBitmap;
-    private TextView resTV;
     private String uId;
 
     @Override
@@ -65,7 +64,6 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         undoIV = findViewById(R.id.undoIV);
         redoIV = findViewById(R.id.redoIV);
         submitButton = findViewById(R.id.submitButton);
-        resTV = findViewById(R.id.resultTV);
     }
 
     private void chooseTask() {
@@ -73,66 +71,79 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
             case 1:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_1);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_1);
                 break;
 
             case 2:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_2);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_2);
                 break;
 
             case 3:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_3);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_3);
                 break;
 
             case 4:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_4);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_4);
                 break;
 
             case 5:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_5);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_5);
                 break;
 
             case 6:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_6);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_6);
                 break;
 
             case 7:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_7);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_7);
                 break;
 
             case 8:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_8);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_8);
                 break;
 
             case 9:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_9);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_9);
                 break;
 
             case 10:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_10);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_10);
                 break;
 
             case 11:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_11);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_11);
                 break;
 
             case 12:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_12);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_12);
                 break;
 
             default:
                 refBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.level_13);
                 refBitmap = Bitmap.createScaledBitmap(refBitmap, 512, 512, false);
+                demoImage.setImageResource(R.drawable.level_13);
                 Toast.makeText(this, "Completed", Toast.LENGTH_SHORT).show();
 
         }
@@ -190,8 +201,5 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         intent.putExtra("resultMessage", result);
         intent.putExtra("uId", uId);
         startActivity(intent);
-
-
-//        Toast.makeText(this, "Res: "+result, Toast.LENGTH_SHORT).show();
     }
 }

@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
-    private void choseUserMode(String uId) {
+    private void choseUserMode(final String uId) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Root").child("AllUsers").child(uId);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,11 +85,14 @@ public class LoginActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     String role = dataSnapshot.getValue().toString();
                     if (role.equals("Player")){
-                        startActivity(new Intent(LoginActivity.this, PlayerHomeActivity.class));
-                    } else if (role.equals("Store")){
-                        startActivity(new Intent(LoginActivity.this, StoreHomeActivity.class));
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, PlayerHomeActivity.class);
+                        intent.putExtra("uId", uId);
+                        startActivity(intent);
+                    } else{
+                        Intent intent = new Intent(LoginActivity.this, StoreHomeActivity.class);
+                        intent.putExtra("uId", uId);
+                        intent.putExtra("role", role);
+                        startActivity(intent);
                     }
                 }
             }

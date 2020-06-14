@@ -30,13 +30,6 @@ public class SplashActivity extends AppCompatActivity {
         init();
         choseUserMode();
 
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                doWork();
-//            }
-//        });
-//        thread.start();
     }
 
 
@@ -60,14 +53,12 @@ public class SplashActivity extends AppCompatActivity {
                             intent.putExtra("uId", uId);
                             startActivity(intent);
 
-                        } else if (role.equals("Store")){
-
+                        } else {
                             Intent intent = new Intent(SplashActivity.this, StoreHomeActivity.class);
                             intent.putExtra("uId", uId);
+                            intent.putExtra("role", role);
                             startActivity(intent);
 
-                        } else {
-                            Toast.makeText(SplashActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
 

@@ -7,11 +7,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ernestyes.mrsimpatia.fiverr.CursorMachine;
 import com.ernestyes.mrsimpatia.fiverr.Draw;
 import com.ernestyes.mrsimpatia.fiverr.R;
 
@@ -21,7 +24,7 @@ public class PaintView extends View {
     public static int BRUSH_SIZE = 10;
     public static final int DEFAULT_COLOR = Color.BLACK;
 
-    public static final int DEFAULT_BG_COLOR = Color.rgb(228, 162, 118);
+    public static final int DEFAULT_BG_COLOR = Color.rgb(255, 255, 255);
     private static final float TOUCH_TOLERANCE = 4;
 
 
@@ -35,11 +38,14 @@ public class PaintView extends View {
     private Canvas mCanvas;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
     private Paint opacityPaint = new Paint();
+    private CursorMachine cursorMachine;
     private ArrayList<Draw> paths = new ArrayList<>();
     private ArrayList<Draw> undo = new ArrayList<>();
 
     public PaintView(Context context) {
         super(context, null);
+        cursorMachine = new CursorMachine(getResources());
+
     }
 
     public PaintView(Context context, AttributeSet attrs) {
@@ -54,6 +60,7 @@ public class PaintView extends View {
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
         opacityPaint.setAlpha(42);
+        cursorMachine = new CursorMachine(getResources());
     }
 
     public void initialise(Bitmap bitmap) {
@@ -63,20 +70,23 @@ public class PaintView extends View {
         strokeWidth = BRUSH_SIZE;
         backgroundBitmap = bitmap;
         referenceBitmap = bitmap;
+        cursorMachine = new CursorMachine(getResources());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-//        mCanvas.drawColor(backgroundColor); // WRONG
+        mCanvas.drawColor(backgroundColor); // WRONG
         for (Draw draw : paths) {
             mPaint.setColor(draw.color); // WRONG
             mPaint.setStrokeWidth(draw.strokeWidth);
             mPaint.setMaskFilter(null);
             mCanvas.drawPath(draw.path, mPaint);
+            mCanvas.drawBitmap(cursorMachine.getCursor(), mX, mY - 140, mPaint);
         }
-        canvas.drawBitmap(backgroundBitmap, 0,0, opacityPaint);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
+        canvas.drawBitmap(backgroundBitmap, 0,0, opacityPaint);
+
         canvas.restore();
 
     }
@@ -173,9 +183,7 @@ public class PaintView extends View {
             invalidate(); // add
 
         } else {
-
             Toast.makeText(getContext(), "Nothing to undo", Toast.LENGTH_LONG).show();
-
         }
 
     }
@@ -201,13 +209,22 @@ public class PaintView extends View {
                 drawingMatrix[i][j] = mBitmap.getPixel(i, j);
                 referenceMatrix[i][j] = referenceBitmap.getPixel(i, j);
 
-
-
-                if (drawingMatrix[i][j] == referenceMatrix[i][j]){
+                if (drawingMatrix[i][j] == -1 && referenceMatrix[i][j]==0){
+                    matched++;
+                } else if (referenceMatrix[i][j] != 0 && drawingMatrix[i][j] != -1){
                     matched++;
                 } else {
                     unmatched++;
                 }
+
+
+
+
+//                if (drawingMatrix[i][j] == referenceMatrix[i][j]){
+//                    matched++;
+//                } else {
+//                    unmatched++;
+//                }
 
             }
         }
@@ -224,8 +241,7 @@ public class PaintView extends View {
         }
 
 
-
-
+        Toast.makeText(getContext(), "Drw: "+drawingMatrix[256][400]+" ref "+referenceMatrix[256][400] , Toast.LENGTH_SHORT).show();
 //        String result = "Match: "+matched+" unmatched: "+unmatched+"\nEmptyPixel "+emptyPixels+"";
         return result;
 

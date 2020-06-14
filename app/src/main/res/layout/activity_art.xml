@@ -5,15 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="@color/white"
     tools:context=".activities.ArtActivity">
 
-    <TextView
-        android:id="@+id/resultTV"
-        android:layout_marginTop="130dp"
-        android:textSize="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="result" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,8 +26,9 @@
             android:id="@+id/showDemo"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:src="@drawable/level_9"
             android:layout_centerInParent="true"
-            android:background="#69F0AE" />
+            android:background="@drawable/curve_background_transparent" />
 
         <LinearLayout
             android:layout_width="wrap_content"

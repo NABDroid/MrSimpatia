@@ -14,14 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
-import com.ernestyes.mrsimpatia.fiverr.activities.ChooseStoreActivity;
 import com.ernestyes.mrsimpatia.fiverr.Store;
 import com.ernestyes.mrsimpatia.fiverr.activities.PlayerHomeActivity;
-import com.ernestyes.mrsimpatia.fiverr.activities.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,6 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
     private DatabaseReference databaseReference;
     private ArrayList<Store> stores;
     private Context context;
-    ChooseStoreActivity chooseStoreActivity;
 
     public ShopListAdapter(ArrayList<Store> stores, Context context, FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
         this.stores = stores;
@@ -98,16 +98,44 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
         });
     }
 
-    private void writeChosenStoreIntoStoreTable(String storeName, String uId) {
+    private void writeChosenStoreIntoStoreTable(final String storeName, String uId) {
+
 
         DatabaseReference storeRef = databaseReference.child("Stores").child(storeName).child("players").child(uId);
         storeRef.setValue(uId).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                
+                colletcTotalPlayerInfo(storeName);
+
+            }
+        });
+    }
+
+    private void colletcTotalPlayerInfo(String storeName) {
+        final DatabaseReference storeRef = databaseReference.child("Stores").child(storeName).child("totalPlayers");
+        storeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int totalPlayer = Integer.parseInt(dataSnapshot.getValue().toString());
+                updateTotalPlayer(storeRef, totalPlayer);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void updateTotalPlayer(DatabaseReference storeRef, int totalPlayer) {
+        totalPlayer = totalPlayer+1;
+        storeRef.setValue(totalPlayer).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
                 context.startActivity(new Intent(context, PlayerHomeActivity.class));
                 Toast.makeText(context, "Store Attached Successfully", Toast.LENGTH_SHORT).show();
-
             }
         });
     }

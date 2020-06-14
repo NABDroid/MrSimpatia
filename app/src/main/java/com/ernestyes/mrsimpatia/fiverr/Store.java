@@ -2,8 +2,7 @@ package com.ernestyes.mrsimpatia.fiverr;
 
 public class Store {
     String storeName, authorName, email, location;
-    public boolean colorCheck = false;
-    int totalPlayers, totalPoints;
+    int totalPlayers;
 
     public Store(String storeName, String authorName, String email, String location) {
         this.storeName = storeName;
@@ -13,13 +12,12 @@ public class Store {
     }
 
 
-    public Store(String storeName, String authorName, String email, String location, int totalPlayers, int totalPoints) {
+    public Store(String storeName, String authorName, String email, String location, int totalPlayers) {
         this.storeName = storeName;
         this.authorName = authorName;
         this.email = email;
         this.location = location;
         this.totalPlayers = totalPlayers;
-        this.totalPoints = totalPoints;
     }
 
     public int getTotalPlayers() {
@@ -28,14 +26,6 @@ public class Store {
 
     public void setTotalPlayers(int totalPlayers) {
         this.totalPlayers = totalPlayers;
-    }
-
-    public int getTotalPoints() {
-        return totalPoints;
-    }
-
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
     }
 
     public Store() {
