@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ernestyes.mrsimpatia.fiverr.EmailActivity;
 import com.ernestyes.mrsimpatia.fiverr.Player;
 import com.ernestyes.mrsimpatia.fiverr.R;
 import com.google.firebase.database.DataSnapshot;
@@ -88,7 +89,7 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.mailImageViewPlayerHome:
-                Toast.makeText(this, "mailImageViewPlayerHome", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, EmailActivity.class));
                 break;
 
             case R.id.startGameImageViewPlayerHome:
