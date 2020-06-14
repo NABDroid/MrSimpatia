@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".ResultActivity">
+
+    <TextView
+        android:id="@+id/waitingForResultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculating Result"
+        android:visibility="visible"
+        android:textSize="30dp"
+        android:layout_centerInParent="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="@color/text_color"/>
 
     <ImageView
         android:id="@+id/resultImageView"

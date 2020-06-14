@@ -23,6 +23,7 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
     private TextView point;
     private Player player;
     private int currentLevel;
+    private String uId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_player_home);
         init();
         Intent incomingIntent = getIntent();
-        String uId = incomingIntent.getStringExtra("uId");
+        uId = incomingIntent.getStringExtra("uId");
         getPlayerProfileFromDB(uId);
 
         onlinePlayers.setOnClickListener(this);
@@ -93,6 +94,7 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
             case R.id.startGameImageViewPlayerHome:
                 Intent startGameIntent = new Intent(this, ArtActivity.class);
                 startGameIntent.putExtra("currentLevel", currentLevel);
+                startGameIntent.putExtra("uId", uId);
                 startActivity(startGameIntent);
                 break;
 

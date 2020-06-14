@@ -24,7 +24,7 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     int currentLevel = 49;
     private Bitmap refBitmap;
     private TextView resTV;
-    private static final String RESULT_MESSAGE = "resultMessage";
+    private String uId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
 
         Intent artIntent = getIntent();
         currentLevel = artIntent.getIntExtra("currentLevel", 50);
+        uId = artIntent.getStringExtra("uId");
         Toast.makeText(this, "currentLevel " + currentLevel, Toast.LENGTH_SHORT).show();
 
         chooseTask();
@@ -186,10 +187,11 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     private void checkResult() {
         int result = paintView.getResult();
         Intent intent = new Intent(this, ResultActivity.class);
-        intent.putExtra(RESULT_MESSAGE, result);
+        intent.putExtra("resultMessage", result);
+        intent.putExtra("uId", uId);
         startActivity(intent);
 
 
-        Toast.makeText(this, "Res: "+result, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Res: "+result, Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,6 +1,7 @@
 package com.ernestyes.mrsimpatia.fiverr.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ernestyes.mrsimpatia.fiverr.R;
 import com.ernestyes.mrsimpatia.fiverr.activities.ChooseStoreActivity;
 import com.ernestyes.mrsimpatia.fiverr.Store;
+import com.ernestyes.mrsimpatia.fiverr.activities.PlayerHomeActivity;
+import com.ernestyes.mrsimpatia.fiverr.activities.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,7 +104,10 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
         storeRef.setValue(uId).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                
+                context.startActivity(new Intent(context, PlayerHomeActivity.class));
                 Toast.makeText(context, "Store Attached Successfully", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
