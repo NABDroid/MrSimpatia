@@ -15,7 +15,9 @@
         <activity android:name=".EmailActivity"
             android:lockTaskMode="always"
             android:screenOrientation="landscape"></activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity"
+            android:lockTaskMode="always"
+            android:screenOrientation="landscape"/>
         <activity android:name=".ResultActivity" />
         <activity android:name=".activities.ArtActivity" />
         <activity

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.EmailActivity;
 import com.ernestyes.mrsimpatia.fiverr.Player;
+import com.ernestyes.mrsimpatia.fiverr.ProfileActivity;
 import com.ernestyes.mrsimpatia.fiverr.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -100,6 +102,9 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.profileImageViewPlayerHome:
+                Intent intent = new Intent(this, ProfileActivity.class);
+                intent.putExtra("uId", currentLevel);
+                startActivity(intent);
                 Toast.makeText(this, "profileImageViewPlayerHome", Toast.LENGTH_SHORT).show();
                 break;
 

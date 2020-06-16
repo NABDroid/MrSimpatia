@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,7 +29,6 @@ public class ChooseStoreActivity extends AppCompatActivity {
     private RecyclerView shopsRecyclerView;
     private ShopListAdapter shopListAdapter;
     private ArrayList<Store> stores;
-    private FloatingActionButton fabAdd;
     private String storeName = "NoStore";
 
     @Override
@@ -38,16 +38,7 @@ public class ChooseStoreActivity extends AppCompatActivity {
         init();
         initRecyclerView();
         loadDataIntoRecyclerview();
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (storeName !="NoStore"){
-                } else {
-                    Toast.makeText(ChooseStoreActivity.this, "Select a store", Toast.LENGTH_SHORT).show();
-                }
 
-            }
-        });
 
 
     }
@@ -55,7 +46,6 @@ public class ChooseStoreActivity extends AppCompatActivity {
 
 
     private void init() {
-        fabAdd = findViewById(R.id.addFab);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Root");
         shopsRecyclerView = findViewById(R.id.shopListRecyclerView);

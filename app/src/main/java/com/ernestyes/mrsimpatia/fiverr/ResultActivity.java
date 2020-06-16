@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ernestyes.mrsimpatia.fiverr.activities.PlayerHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,7 @@ public class ResultActivity extends AppCompatActivity {
     private int result;
     private ImageView imageView;
     private TextView waitingForResultTextView;
+    private Button continueButton;
 
 
     @Override
@@ -45,6 +48,13 @@ public class ResultActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.looser);
         }
 
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ResultActivity.this, PlayerHomeActivity.class));
+            }
+        });
+
 
 
 
@@ -57,6 +67,7 @@ public class ResultActivity extends AppCompatActivity {
         pointRef = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId).child("point");
         levelRef = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId).child("completedTask");
         imageView = findViewById(R.id.resultImageView);
+        continueButton = findViewById(R.id.continueToGameButtonResultActivity);
         waitingForResultTextView = findViewById(R.id.waitingForResultTextView);
     }
 

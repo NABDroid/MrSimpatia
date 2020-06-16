@@ -20,14 +20,12 @@ import com.ernestyes.mrsimpatia.fiverr.R;
 
 import java.util.ArrayList;
 
+
 public class PaintView extends View {
     public static int BRUSH_SIZE = 10;
     public static final int DEFAULT_COLOR = Color.BLACK;
-
     public static final int DEFAULT_BG_COLOR = Color.rgb(255, 255, 255);
     private static final float TOUCH_TOLERANCE = 4;
-
-
     private float mX, mY;
     private Path mPath;
     private Paint mPaint;
@@ -41,10 +39,13 @@ public class PaintView extends View {
     private CursorMachine cursorMachine;
     private ArrayList<Draw> paths = new ArrayList<>();
     private ArrayList<Draw> undo = new ArrayList<>();
+    private Context context;
+    private Vibrator vibrator;
 
     public PaintView(Context context) {
         super(context, null);
         cursorMachine = new CursorMachine(getResources());
+        this.context = context;
 
     }
 
@@ -61,6 +62,8 @@ public class PaintView extends View {
         mPaint.setAlpha(0xff);
         opacityPaint.setAlpha(42);
         cursorMachine = new CursorMachine(getResources());
+        this.context = context;
+        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     public void initialise(Bitmap bitmap) {
@@ -71,6 +74,7 @@ public class PaintView extends View {
         backgroundBitmap = bitmap;
         referenceBitmap = bitmap;
         cursorMachine = new CursorMachine(getResources());
+
     }
 
     @Override
@@ -103,6 +107,9 @@ public class PaintView extends View {
 
         mX = x;
         mY = y;
+        if (vibrator.hasVibrator()){
+            vibrator.vibrate(60000);
+        }
 
     }
 
@@ -124,6 +131,7 @@ public class PaintView extends View {
 
     private void touchUp() {
         mPath.lineTo(mX, mY);
+        vibrator.cancel();
     }
 
     @Override
