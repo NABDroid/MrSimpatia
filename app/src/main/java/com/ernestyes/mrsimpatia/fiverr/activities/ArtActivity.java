@@ -11,11 +11,9 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
-import com.ernestyes.mrsimpatia.fiverr.ResultActivity;
 
 public class ArtActivity extends AppCompatActivity implements View.OnClickListener {
     private PaintView paintView;

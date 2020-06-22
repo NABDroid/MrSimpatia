@@ -1,4 +1,4 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ernestyes.mrsimpatia.fiverr.activities.ArtActivity;
-import com.ernestyes.mrsimpatia.fiverr.activities.PlayerHomeActivity;
+import com.ernestyes.mrsimpatia.fiverr.R;
 
 public class EmailActivity extends AppCompatActivity {
     private TextView acceptTV, declineTV;

@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.VibrationEffect;
+import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -41,6 +41,9 @@ public class PaintView extends View {
     private ArrayList<Draw> undo = new ArrayList<>();
     private Context context;
     private Vibrator vibrator;
+    private CountDownTimer countDownTimer;
+    private boolean countDownCheck = true;
+    private long waitingTime = 3000;
 
     public PaintView(Context context) {
         super(context, null);
@@ -81,64 +84,75 @@ public class PaintView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.save();
         mCanvas.drawColor(backgroundColor); // WRONG
-        for (Draw draw : paths) {
-            mPaint.setColor(draw.color); // WRONG
-            mPaint.setStrokeWidth(draw.strokeWidth);
-            mPaint.setMaskFilter(null);
-            mCanvas.drawPath(draw.path, mPaint);
-            mCanvas.drawBitmap(cursorMachine.getCursor(), mX, mY - 140, mPaint);
-        }
+            for (Draw draw : paths) {
+                mPaint.setColor(draw.color); // WRONG
+                mPaint.setStrokeWidth(draw.strokeWidth);
+                mPaint.setMaskFilter(null);
+                mCanvas.drawPath(draw.path, mPaint);
+                mCanvas.drawBitmap(cursorMachine.getCursor(), mX, mY - 140, mPaint);
+            }
+
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-        canvas.drawBitmap(backgroundBitmap, 0,0, opacityPaint);
+
+        canvas.drawBitmap(backgroundBitmap, 0, 0, opacityPaint);
 
         canvas.restore();
 
     }
 
-    private void touchStart(float x, float y) {
 
+    private void touchStart(float x, float y) {
         mPath = new Path();
+        countDownCheck = false;
+        countDownTimer = new CountDownTimer(waitingTime, 10) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                countDownCheck = true;
+            }
+        }.start();
 
         Draw draw = new Draw(currentColor, strokeWidth, mPath);
         paths.add(draw);
-
         mPath.reset();
         mPath.moveTo(x, y);
-
         mX = x;
         mY = y;
-        if (vibrator.hasVibrator()){
+        if (vibrator.hasVibrator()) {
             vibrator.vibrate(60000);
         }
 
     }
 
     private void touchMove(float x, float y) {
-
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
-
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-
-            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-
+            if (countDownCheck) {
+                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+            }
             mX = x;
             mY = y;
-
         }
 
     }
 
+
     private void touchUp() {
         mPath.lineTo(mX, mY);
         vibrator.cancel();
+        countDownCheck = false;
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        float x = event.getX();
-        float y = event.getY();
+        float x = event.getX() - 100;
+        float y = event.getY() - 100;
 
         switch (event.getAction()) {
 
@@ -153,6 +167,7 @@ public class PaintView extends View {
             case MotionEvent.ACTION_MOVE:
                 touchMove(x, y);
                 invalidate();
+
                 break;
 
         }
@@ -209,7 +224,7 @@ public class PaintView extends View {
         int matched = 0, unmatched = 0, result;
 
         int[][] drawingMatrix = new int[512][512];
-        int[][] referenceMatrix =  new int[512][512];
+        int[][] referenceMatrix = new int[512][512];
 
 
         for (int i = 0; i < 512; i++) {
@@ -217,15 +232,13 @@ public class PaintView extends View {
                 drawingMatrix[i][j] = mBitmap.getPixel(i, j);
                 referenceMatrix[i][j] = referenceBitmap.getPixel(i, j);
 
-                if (drawingMatrix[i][j] == -1 && referenceMatrix[i][j]==0){
+                if (drawingMatrix[i][j] == -1 && referenceMatrix[i][j] == 0) {
                     matched++;
-                } else if (referenceMatrix[i][j] != 0 && drawingMatrix[i][j] != -1){
+                } else if (referenceMatrix[i][j] != 0 && drawingMatrix[i][j] != -1) {
                     matched++;
                 } else {
                     unmatched++;
                 }
-
-
 
 
 //                if (drawingMatrix[i][j] == referenceMatrix[i][j]){
@@ -238,18 +251,18 @@ public class PaintView extends View {
         }
 
 
-        if (unmatched<=10000){
-             result = 100;
-        } else if (unmatched<=20000 && unmatched>10000){
+        if (unmatched <= 10000) {
+            result = 100;
+        } else if (unmatched <= 20000 && unmatched > 10000) {
             result = 90;
-        } else if (unmatched<=30000 && unmatched>20000){
+        } else if (unmatched <= 30000 && unmatched > 20000) {
             result = 80;
         } else {
             result = 0;
         }
 
 
-        Toast.makeText(getContext(), "Drw: "+drawingMatrix[256][400]+" ref "+referenceMatrix[256][400] , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Drw: " + drawingMatrix[256][400] + " ref " + referenceMatrix[256][400], Toast.LENGTH_SHORT).show();
 //        String result = "Match: "+matched+" unmatched: "+unmatched+"\nEmptyPixel "+emptyPixels+"";
         return result;
 

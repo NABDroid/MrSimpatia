@@ -1,4 +1,4 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.ernestyes.mrsimpatia.fiverr.Player;
+import com.ernestyes.mrsimpatia.fiverr.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,21 +39,23 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getDataFromDB(String uId) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId);
+        if(uId!=null){
+            databaseReference = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId);
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Player player = dataSnapshot.getValue(Player.class);
-                setDataIntoFields(player);
-            }
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Player player = dataSnapshot.getValue(Player.class);
+                    setDataIntoFields(player);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
+        }
 
     }
 

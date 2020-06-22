@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
@@ -49,9 +50,7 @@ public class SplashActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         String role = dataSnapshot.getValue().toString();
                         if (role.equals("Player")){
-                            Intent intent = new Intent(SplashActivity.this, PlayerHomeActivity.class);
-                            intent.putExtra("uId", uId);
-                            startActivity(intent);
+                           checkAssignedStore(uId);
 
                         } else {
                             Intent intent = new Intent(SplashActivity.this, StoreHomeActivity.class);
@@ -72,8 +71,35 @@ public class SplashActivity extends AppCompatActivity {
 
         } else{
             startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
-
         }
+    }
+
+    private void checkAssignedStore(final String uId) {
+        DatabaseReference playersStoreRef = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId).child("associatedStore");
+
+        playersStoreRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String storeName = dataSnapshot.getValue().toString();
+                if (storeName.equals("No Store")){
+                    Intent intent = new Intent(SplashActivity.this, ChooseStoreActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, PlayerHomeActivity.class);
+                    intent.putExtra("uId", uId);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
 

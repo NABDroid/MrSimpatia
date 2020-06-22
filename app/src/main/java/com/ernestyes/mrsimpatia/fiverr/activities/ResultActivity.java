@@ -1,18 +1,16 @@
-package com.ernestyes.mrsimpatia.fiverr;
+package com.ernestyes.mrsimpatia.fiverr.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ernestyes.mrsimpatia.fiverr.activities.PlayerHomeActivity;
+import com.ernestyes.mrsimpatia.fiverr.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

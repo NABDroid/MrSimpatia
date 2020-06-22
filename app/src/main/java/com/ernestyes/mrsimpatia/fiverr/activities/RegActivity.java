@@ -74,8 +74,6 @@ public class RegActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Password Didn't matched", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
 

@@ -3,29 +3,34 @@ package com.ernestyes.mrsimpatia.fiverr.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ernestyes.mrsimpatia.fiverr.EmailActivity;
+import com.ernestyes.mrsimpatia.fiverr.AlertReceiver;
 import com.ernestyes.mrsimpatia.fiverr.Player;
-import com.ernestyes.mrsimpatia.fiverr.ProfileActivity;
 import com.ernestyes.mrsimpatia.fiverr.R;
+import com.ernestyes.mrsimpatia.fiverr.RedeemPointsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class PlayerHomeActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView onlinePlayers, emails, startGame, profile, redeem;
-    private TextView point;
+    private ImageView onlinePlayersIV, emailsIV, startGameIV, profileIV, redeemIV;
+    private TextView pointTV;
     private Player player;
-    private int currentLevel;
+    private int currentLevel, point;
     private String uId;
 
     @Override
@@ -33,25 +38,26 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_home);
         init();
+        setReminderForNextTask();
         Intent incomingIntent = getIntent();
         uId = incomingIntent.getStringExtra("uId");
         getPlayerProfileFromDB(uId);
 
-        onlinePlayers.setOnClickListener(this);
-        emails.setOnClickListener(this);
-        startGame.setOnClickListener(this);
-        profile.setOnClickListener(this);
-        redeem.setOnClickListener(this);
+        onlinePlayersIV.setOnClickListener(this);
+        emailsIV.setOnClickListener(this);
+        startGameIV.setOnClickListener(this);
+        profileIV.setOnClickListener(this);
+        redeemIV.setOnClickListener(this);
     }
 
 
     private void init() {
-        onlinePlayers = findViewById(R.id.onlinePlayersImageViewPlayerHome);
-        emails = findViewById(R.id.mailImageViewPlayerHome);
-        startGame = findViewById(R.id.startGameImageViewPlayerHome);
-        profile = findViewById(R.id.profileImageViewPlayerHome);
-        redeem = findViewById(R.id.redeemImageViewPlayerHome);
-        point = findViewById(R.id.pointsTextViewPlayerHome);
+        onlinePlayersIV = findViewById(R.id.onlinePlayersImageViewPlayerHome);
+        emailsIV = findViewById(R.id.mailImageViewPlayerHome);
+        startGameIV = findViewById(R.id.startGameImageViewPlayerHome);
+        profileIV = findViewById(R.id.profileImageViewPlayerHome);
+        redeemIV = findViewById(R.id.redeemImageViewPlayerHome);
+        pointTV = findViewById(R.id.pointsTextViewPlayerHome);
     }
 
     private void getPlayerProfileFromDB(String uId) {
@@ -76,8 +82,9 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void processPlayerData() {
-        String pointStr = Integer.toString(player.getPoint());
-        point.setText("Balance " + pointStr);
+        point = player.getPoint();
+        String pointStr = Integer.toString(point);
+        pointTV.setText("Balance " + pointStr);
         currentLevel = player.getCompletedTask() + 1;
 
     }
@@ -103,15 +110,45 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.profileImageViewPlayerHome:
                 Intent intent = new Intent(this, ProfileActivity.class);
-                intent.putExtra("uId", currentLevel);
+                intent.putExtra("uId", uId);
                 startActivity(intent);
                 Toast.makeText(this, "profileImageViewPlayerHome", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.redeemImageViewPlayerHome:
+                Intent redeemIntent = new Intent(this, RedeemPointsActivity.class);
+                redeemIntent.putExtra("uId", uId);
+                startActivity(redeemIntent);
                 Toast.makeText(this, "redeemImageViewPlayerHome", Toast.LENGTH_SHORT).show();
                 break;
         }
+
+    }
+
+
+
+
+    private void setReminderForNextTask() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.SECOND, 0);
+        Date date = calendar.getTime();
+        Long timeMS = date.getTime();
+
+        calendar.setTimeInMillis(timeMS);
+
+
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent morningIntent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, morningIntent, 0);
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DATE, 1);
+        }
+
+
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_HOUR, pendingIntent);
 
     }
 }

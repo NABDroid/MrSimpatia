@@ -85,7 +85,7 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
 
     public void writeChosenStoreIntoPlayersTable(final String storeName){
         final String uId = firebaseAuth.getCurrentUser().getUid();
-        DatabaseReference playersRef = databaseReference.child("Players").child(uId).child("store");
+        DatabaseReference playersRef = databaseReference.child("Players").child(uId).child("associatedStore");
         playersRef.setValue(storeName).addOnCompleteListener( new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

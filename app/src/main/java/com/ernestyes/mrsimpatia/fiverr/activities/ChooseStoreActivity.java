@@ -29,7 +29,6 @@ public class ChooseStoreActivity extends AppCompatActivity {
     private RecyclerView shopsRecyclerView;
     private ShopListAdapter shopListAdapter;
     private ArrayList<Store> stores;
-    private String storeName = "NoStore";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

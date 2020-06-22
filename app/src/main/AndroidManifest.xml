@@ -12,13 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EmailActivity"
+        <activity android:name=".RedeemPointsActivity"
             android:lockTaskMode="always"
             android:screenOrientation="landscape"></activity>
-        <activity android:name=".ProfileActivity"
+        <activity
+            android:name=".activities.EmailActivity"
             android:lockTaskMode="always"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".ResultActivity" />
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:lockTaskMode="always"
+            android:screenOrientation="landscape" />
+        <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.ArtActivity" />
         <activity
             android:name=".activities.StoreHomeActivity"
