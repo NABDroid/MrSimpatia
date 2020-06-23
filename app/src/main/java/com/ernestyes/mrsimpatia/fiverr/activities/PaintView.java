@@ -44,11 +44,13 @@ public class PaintView extends View {
     private CountDownTimer countDownTimer;
     private boolean countDownCheck = true;
     private long waitingTime = 3000;
+    private ArtActivity artActivity;
 
     public PaintView(Context context) {
         super(context, null);
-        cursorMachine = new CursorMachine(getResources());
         this.context = context;
+        cursorMachine = new CursorMachine(getResources(), context);
+        artActivity = new ArtActivity();
 
     }
 
@@ -64,9 +66,10 @@ public class PaintView extends View {
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
         opacityPaint.setAlpha(42);
-        cursorMachine = new CursorMachine(getResources());
         this.context = context;
+        cursorMachine = new CursorMachine(getResources(), context);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        artActivity = new ArtActivity();
     }
 
     public void initialise(Bitmap bitmap) {
@@ -76,8 +79,8 @@ public class PaintView extends View {
         strokeWidth = BRUSH_SIZE;
         backgroundBitmap = bitmap;
         referenceBitmap = bitmap;
-        cursorMachine = new CursorMachine(getResources());
-
+        cursorMachine = new CursorMachine(getResources(), context);
+        artActivity = new ArtActivity();
     }
 
     @Override
@@ -90,23 +93,23 @@ public class PaintView extends View {
                 mPaint.setMaskFilter(null);
                 mCanvas.drawPath(draw.path, mPaint);
                 mCanvas.drawBitmap(cursorMachine.getCursor(), mX, mY - 140, mPaint);
+
             }
-
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-
         canvas.drawBitmap(backgroundBitmap, 0, 0, opacityPaint);
-
         canvas.restore();
-
     }
 
 
     private void touchStart(float x, float y) {
         mPath = new Path();
         countDownCheck = false;
-        countDownTimer = new CountDownTimer(waitingTime, 10) {
+        countDownTimer = new CountDownTimer(waitingTime, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
+                int progress = (int) millisUntilFinished;
+                progress = progress/100;
+                artActivity.progressBar.setProgress(progress);
             }
 
             @Override
@@ -131,6 +134,7 @@ public class PaintView extends View {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            mPath.moveTo(mX, mY); //test
             if (countDownCheck) {
                 mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             }

@@ -11,6 +11,7 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.R;
@@ -23,7 +24,8 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
     int currentLevel = 49;
     private Bitmap refBitmap;
     private String uId;
-    private Vibrator vibrator;
+    public ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
 
 
     private void init() {
+        progressBar = findViewById(R.id.progressbarAA);
         demoImage = findViewById(R.id.showDemo);
         paintView = findViewById(R.id.paintView);
         blackButton = findViewById(R.id.black_color);
