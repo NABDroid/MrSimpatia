@@ -44,12 +44,15 @@ public class ResultActivity extends AppCompatActivity {
         } else{
             waitingForResultTextView.setVisibility(View.GONE);
             imageView.setImageResource(R.drawable.looser);
+            continueButton.setVisibility(View.VISIBLE);
         }
 
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ResultActivity.this, PlayerHomeActivity.class));
+                Intent intent = new Intent(ResultActivity.this, PlayerHomeActivity.class);
+                intent.putExtra("uId", uId);
+                startActivity(intent);
             }
         });
 
@@ -112,6 +115,7 @@ public class ResultActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         waitingForResultTextView.setVisibility(View.GONE);
                         imageView.setImageResource(R.drawable.winner);
+                        continueButton.setVisibility(View.VISIBLE);
                     }
                 });
             }

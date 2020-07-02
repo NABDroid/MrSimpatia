@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.CursorMachine;
 import com.ernestyes.mrsimpatia.fiverr.Draw;
-import com.ernestyes.mrsimpatia.fiverr.R;
 
 import java.util.ArrayList;
 
@@ -44,13 +43,11 @@ public class PaintView extends View {
     private CountDownTimer countDownTimer;
     private boolean countDownCheck = true;
     private long waitingTime = 3000;
-    private ArtActivity artActivity;
 
     public PaintView(Context context) {
         super(context, null);
         this.context = context;
         cursorMachine = new CursorMachine(getResources(), context);
-        artActivity = new ArtActivity();
 
     }
 
@@ -69,7 +66,6 @@ public class PaintView extends View {
         this.context = context;
         cursorMachine = new CursorMachine(getResources(), context);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        artActivity = new ArtActivity();
     }
 
     public void initialise(Bitmap bitmap) {
@@ -80,7 +76,6 @@ public class PaintView extends View {
         backgroundBitmap = bitmap;
         referenceBitmap = bitmap;
         cursorMachine = new CursorMachine(getResources(), context);
-        artActivity = new ArtActivity();
     }
 
     @Override
@@ -107,9 +102,8 @@ public class PaintView extends View {
         countDownTimer = new CountDownTimer(waitingTime, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int progress = (int) millisUntilFinished;
-                progress = progress/100;
-                artActivity.progressBar.setProgress(progress);
+//                int progress = (int) millisUntilFinished;
+//                progress = progress/100;
             }
 
             @Override
@@ -244,13 +238,6 @@ public class PaintView extends View {
                     unmatched++;
                 }
 
-
-//                if (drawingMatrix[i][j] == referenceMatrix[i][j]){
-//                    matched++;
-//                } else {
-//                    unmatched++;
-//                }
-
             }
         }
 
@@ -267,7 +254,6 @@ public class PaintView extends View {
 
 
         Toast.makeText(getContext(), "Drw: " + drawingMatrix[256][400] + " ref " + referenceMatrix[256][400], Toast.LENGTH_SHORT).show();
-//        String result = "Match: "+matched+" unmatched: "+unmatched+"\nEmptyPixel "+emptyPixels+"";
         return result;
 
     }

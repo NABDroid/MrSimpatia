@@ -21,11 +21,11 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/onlinePlayersImageViewPlayerHome"
+            android:id="@+id/shopImageViewPlayerHome"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:padding="10dp"
-            android:src="@drawable/tattoo_machine" />
+            android:src="@drawable/ic_shop" />
 
         <ImageView
             android:id="@+id/mailImageViewPlayerHome"

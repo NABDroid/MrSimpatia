@@ -56,7 +56,7 @@ public class NotificationHelper extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), ch1id)
                 .setContentTitle("MrSimpatia")
                 .setContentText("Draw a tattoo for 1000 points")
-                .setSmallIcon(R.drawable.tattoo_machine)
+                .setSmallIcon(R.drawable.machine_5)
                 .setAutoCancel(true)
                 .setContentIntent(onClickpendingIntent)
                 .setSound(ringToneUri);

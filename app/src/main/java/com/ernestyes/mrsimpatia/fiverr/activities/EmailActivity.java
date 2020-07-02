@@ -22,14 +22,14 @@ public class EmailActivity extends AppCompatActivity {
         acceptTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EmailActivity.this, ArtActivity.class));
+                onBackPressed();
             }
         });
 
         declineTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EmailActivity.this, PlayerHomeActivity.class));
+                onBackPressed();
             }
         });
     }

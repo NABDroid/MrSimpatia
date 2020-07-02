@@ -12,9 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RedeemPointsActivity"
+        <activity android:name=".activities.DualModeActivity"
             android:lockTaskMode="always"
             android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".activities.ShoppingActivity"
+            android:lockTaskMode="always"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".RedeemPointsActivity"
+            android:lockTaskMode="always"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activities.EmailActivity"
             android:lockTaskMode="always"

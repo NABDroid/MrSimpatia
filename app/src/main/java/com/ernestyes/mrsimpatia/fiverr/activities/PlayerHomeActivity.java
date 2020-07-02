@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestyes.mrsimpatia.fiverr.AlertReceiver;
+import com.ernestyes.mrsimpatia.fiverr.OnlineStatus;
 import com.ernestyes.mrsimpatia.fiverr.Player;
 import com.ernestyes.mrsimpatia.fiverr.R;
 import com.ernestyes.mrsimpatia.fiverr.RedeemPointsActivity;
@@ -27,7 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class PlayerHomeActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView onlinePlayersIV, emailsIV, startGameIV, profileIV, redeemIV;
+    private ImageView shopIV, emailsIV, startGameIV, profileIV, redeemIV;
     private TextView pointTV;
     private Player player;
     private int currentLevel, point;
@@ -39,20 +40,25 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_player_home);
         init();
         setReminderForNextTask();
+
         Intent incomingIntent = getIntent();
         uId = incomingIntent.getStringExtra("uId");
         getPlayerProfileFromDB(uId);
-
-        onlinePlayersIV.setOnClickListener(this);
+        shopIV.setOnClickListener(this);
         emailsIV.setOnClickListener(this);
         startGameIV.setOnClickListener(this);
         profileIV.setOnClickListener(this);
         redeemIV.setOnClickListener(this);
     }
 
+    private void setOnlineActivity(OnlineStatus onlineStatus) {
+        DatabaseReference onlineStatusRef = FirebaseDatabase.getInstance().getReference("Root").child("Online").child(uId);
+        onlineStatusRef.setValue(onlineStatus);
+    }
+
 
     private void init() {
-        onlinePlayersIV = findViewById(R.id.onlinePlayersImageViewPlayerHome);
+        shopIV = findViewById(R.id.shopImageViewPlayerHome);
         emailsIV = findViewById(R.id.mailImageViewPlayerHome);
         startGameIV = findViewById(R.id.startGameImageViewPlayerHome);
         profileIV = findViewById(R.id.profileImageViewPlayerHome);
@@ -60,40 +66,52 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
         pointTV = findViewById(R.id.pointsTextViewPlayerHome);
     }
 
-    private void getPlayerProfileFromDB(String uId) {
-
-
+    private void getPlayerProfileFromDB(final String uId) {
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId);
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     player = dataSnapshot.getValue(Player.class);
-                    processPlayerData();
+                    OnlineStatus onlineStatus = new OnlineStatus(uId, player.getName(), true);
+                    processPlayerData(onlineStatus);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
 
-    private void processPlayerData() {
-        point = player.getPoint();
+    private void processPlayerData(OnlineStatus onlineStatus) {
+        point = this.player.getPoint();
         String pointStr = Integer.toString(point);
         pointTV.setText("Balance " + pointStr);
-        currentLevel = player.getCompletedTask() + 1;
-
+        currentLevel = this.player.getCompletedTask() + 1;
+        setOnlineActivity(onlineStatus);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.onlinePlayersImageViewPlayerHome:
+            case R.id.shopImageViewPlayerHome:
+                Intent shoppingIntent = new Intent(this, ShoppingActivity.class);
+                shoppingIntent.putExtra("uId", uId);
+                shoppingIntent.putExtra("points", point);
+                shoppingIntent.putExtra("machine1", player.isMachine1());
+                shoppingIntent.putExtra("machine2", player.isMachine2());
+                shoppingIntent.putExtra("machine3", player.isMachine3());
+                shoppingIntent.putExtra("machine4", player.isMachine4());
+                shoppingIntent.putExtra("machine5", player.isMachine5());
+                shoppingIntent.putExtra("color1", player.isColor1());
+                shoppingIntent.putExtra("color2", player.isColor2());
+                shoppingIntent.putExtra("color3", player.isColor3());
+                shoppingIntent.putExtra("color4", player.isColor4());
+                shoppingIntent.putExtra("color5", player.isColor5());
+
+                startActivity(shoppingIntent);
                 Toast.makeText(this, "onlinePlayersImageViewPlayerHome", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -102,7 +120,7 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.startGameImageViewPlayerHome:
-                Intent startGameIntent = new Intent(this, ArtActivity.class);
+                Intent startGameIntent = new Intent(this, DualModeActivity.class);
                 startGameIntent.putExtra("currentLevel", currentLevel);
                 startGameIntent.putExtra("uId", uId);
                 startActivity(startGameIntent);
@@ -122,7 +140,6 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
                 Toast.makeText(this, "redeemImageViewPlayerHome", Toast.LENGTH_SHORT).show();
                 break;
         }
-
     }
 
 
@@ -135,10 +152,7 @@ public class PlayerHomeActivity extends AppCompatActivity implements View.OnClic
         calendar.set(Calendar.SECOND, 0);
         Date date = calendar.getTime();
         Long timeMS = date.getTime();
-
         calendar.setTimeInMillis(timeMS);
-
-
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent morningIntent = new Intent(this, AlertReceiver.class);
