@@ -28,9 +28,7 @@ public class PaintView extends View {
     private float mX, mY;
     private Path mPath;
     private Paint mPaint;
-    private int currentColor;
-    private int backgroundColor = DEFAULT_BG_COLOR;
-    private int strokeWidth;
+    private int currentColor, cursorID, backgroundColor = DEFAULT_BG_COLOR, strokeWidth;
     private Bitmap mBitmap, backgroundBitmap, referenceBitmap;
     private Canvas mCanvas;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
@@ -47,7 +45,7 @@ public class PaintView extends View {
     public PaintView(Context context) {
         super(context, null);
         this.context = context;
-        cursorMachine = new CursorMachine(getResources(), context);
+        cursorMachine = new CursorMachine(getResources(), context, cursorID);
 
     }
 
@@ -64,18 +62,19 @@ public class PaintView extends View {
         mPaint.setAlpha(0xff);
         opacityPaint.setAlpha(42);
         this.context = context;
-        cursorMachine = new CursorMachine(getResources(), context);
+        cursorMachine = new CursorMachine(getResources(), context, cursorID);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public void initialise(Bitmap bitmap) {
+    public void initialise(Bitmap bitmap, int cursorID) {
+        this.cursorID = cursorID;
         mBitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
         currentColor = DEFAULT_COLOR;
         strokeWidth = BRUSH_SIZE;
         backgroundBitmap = bitmap;
         referenceBitmap = bitmap;
-        cursorMachine = new CursorMachine(getResources(), context);
+        cursorMachine = new CursorMachine(getResources(), context, cursorID);
     }
 
     @Override

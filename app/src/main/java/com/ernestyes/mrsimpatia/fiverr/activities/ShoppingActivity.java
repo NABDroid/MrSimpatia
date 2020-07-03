@@ -3,6 +3,7 @@ package com.ernestyes.mrsimpatia.fiverr.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
     private ImageView previewIV;
     private TextView confirmTV, priceTV, equipTV, machine1ProiceTV, machine2ProiceTV, machine3ProiceTV, machine4ProiceTV,
             machine5ProiceTV, color1PriceTV, color2PriceTV, color3PriceTV, color4PriceTV, color5PriceTV;
+
     private int selectedProduct, points;
     private String uId;
     private DatabaseReference databaseReference;
@@ -42,8 +44,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         colorFour.setOnClickListener(this);
         colorFive.setOnClickListener(this);
         confirmTV.setOnClickListener(this);
-
-
+        equipTV.setOnClickListener(this);
     }
 
 
@@ -122,7 +123,6 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
             color5PriceTV.setText("purchased");
         }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -289,6 +289,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                     case 5:
                         databaseReference = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId).child("machine5");
                         databaseReference.setValue(true);
+                        saveSelectedElement(selectedProduct);
                         break;
                     case 6:
                         databaseReference = FirebaseDatabase.getInstance().getReference("Root").child("Players").child(uId).child("color1");
@@ -315,7 +316,19 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
 
+            case R.id.equipThis:
+                saveSelectedElement(selectedProduct);
+                Toast.makeText(this, "Equiped", Toast.LENGTH_SHORT).show();
+
+
         }
 
+    }
+
+    private void saveSelectedElement(int selectedElementId){
+        SharedPreferences sharedPreferences = getSharedPreferences("cursorPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("cursorId", selectedElementId);
+        editor.commit();
     }
 }

@@ -3,6 +3,7 @@ package com.ernestyes.mrsimpatia.fiverr.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -18,7 +19,7 @@ import com.ernestyes.mrsimpatia.fiverr.R;
 
 public class ArtActivity extends AppCompatActivity implements View.OnClickListener {
     private PaintView paintView;
-    private int defaultColor;
+    private int defaultColor, cursorID;
     private Button blackButton, redButton, greenButton, blueButton, submitButton;
     private ImageView undoIV, redoIV, fatLineIV, thinLineIV, demoImage;
     int currentLevel = 49;
@@ -31,6 +32,7 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_art);
         init();
+        getCursorId();
 
         Intent artIntent = getIntent();
         currentLevel = artIntent.getIntExtra("currentLevel", 50);
@@ -39,7 +41,7 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
 
         chooseTask();
 
-        paintView.initialise(refBitmap);
+        paintView.initialise(refBitmap, cursorID);
         paintView.setStrokeWidth(10);
         blackButton.setOnClickListener(this);
         redButton.setOnClickListener(this);
@@ -50,6 +52,12 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         submitButton.setOnClickListener(this);
         fatLineIV.setOnClickListener(this);
         thinLineIV.setOnClickListener(this);
+    }
+
+    private void getCursorId() {
+        SharedPreferences sharedPreferences = getSharedPreferences("cursorPref", MODE_PRIVATE);
+        cursorID = sharedPreferences.getInt("cursorId", 1);
+
     }
 
 
